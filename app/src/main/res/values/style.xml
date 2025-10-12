@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!--图片圆角-->
+    <style name="RoundedImageView" parent="">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">8dp</item> <!-- 设置圆角大小 -->
+    </style>
+
+    <!--图片圆形-->
+    <style name="circular" parent="">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">100dp</item> <!-- 设置圆角大小 -->
+    </style>
+</resources>

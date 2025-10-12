@@ -1,0 +1,24 @@
+<resources>
+    <string name="app_name">Listen_to_the_clouds</string>
+    <string name="home_title">听云·寻音之旅</string>
+    <string name="login">登录/注册</string>
+    <string name="unknown">未知</string>
+    <string name="home_label_music">推荐的音乐</string>
+    <string name="home_deputy_title">listenToTheClouds</string>
+    <string name="title_home">首页</string>
+    <string name="title_dashboard">播放</string>
+    <string name="title_notifications">我的</string>
+    <string name="my">我的</string>
+    <string name="home">首页</string>
+    <string name="searchForMusic">搜索音乐...</string>
+    <string name="failed">加载失败...</string>
+    <string name="title">标题内容</string>
+    <string name="song_title">歌曲名称</string>
+    <string name="author">歌曲作者</string>
+    <string name="total">0000</string>
+    <string name="favoritePlaylists">收藏歌单</string>
+    <string name="favoriteSongs">收藏歌曲</string>
+    <string name="createAPlaylist">创建歌单</string>
+    <string name="userFeedback">用户反馈</string>
+    <string name="localUpload">本地上传</string>
+</resources>

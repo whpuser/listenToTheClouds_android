@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:id="@+id/navigation_home"
+        android:icon="@drawable/logo"
+        android:title="@string/title_home"
+        app:showAsAction="ifRoom" />
+
+    <!-- 可选：不要把中间占位放在 menu 里，FAB 本身处理点击 -->
+    <item
+        android:id="@+id/navigation_dashboard"
+        android:enabled="false"
+        android:title=""
+        app:showAsAction="never"
+        android:visible="false"/>
+
+    <item
+        android:id="@+id/navigation_my"
+        android:icon="@drawable/user"
+        android:title="@string/title_notifications"
+        app:showAsAction="ifRoom" />
+</menu>
