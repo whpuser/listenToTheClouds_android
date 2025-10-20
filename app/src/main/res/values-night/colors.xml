@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="main_color">#61df9f</color>
+    <color name="pureWhite">#1e1e1e</color>
+    <color name="main_back">#121113</color>
+    <color name="main_back1">#1e1e1e</color>
+    <color name="nonSelective">#ced0d6</color>
+    <color name="halfWhite">#80121113</color>
+    <color name="gray">#252526</color>
+</resources>
