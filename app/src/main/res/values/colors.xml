@@ -2,13 +2,17 @@
 <resources>
     <!-- 主题色 -->
     <color name="main_color">#61df9f</color>
-    <color name="main_back">#e9eaee</color>
+    <color name="main_back">#fff</color>
+    <color name="main_back1">#fafafa</color>
     <color name="pureWhite">#fff</color>
-
-
+    <!--    白色半透明-->
+    <color name="halfWhite">#80FFFFFF</color>
+    <!--  文字  -->
     <color name="nonSelective">#81848d</color>
     <color name="grayAndBlack">#273238</color>
+    <!--  搜索栏  -->
     <color name="gray">#e7e9ed</color>
+    <color name="playlist_gradient">#E82E2E2E</color>
 
     <color name="purple_200">#FFBB86FC</color>
     <color name="purple_500">#FF6200EE</color>

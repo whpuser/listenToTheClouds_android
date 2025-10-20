@@ -4,8 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white"
     android:orientation="vertical"
+    android:fitsSystemWindows="false"
     tools:context=".ui.my.MyFragment">
 
     <!-- 背景图部分 -->
@@ -23,7 +23,7 @@
         android:id="@+id/settings"
         android:layout_width="20dp"
         android:layout_height="20dp"
-        android:layout_margin="30dp"
+        android:layout_margin="50dp"
         android:clickable="true"
         android:contentDescription="@null"
         android:focusable="true"
@@ -55,10 +55,11 @@
     </com.google.android.material.card.MaterialCardView>
 
     <LinearLayout
+        android:id="@+id/logIn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
         android:layout_marginStart="15dp"
+        android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="@+id/materialCardView"
         app:layout_constraintStart_toEndOf="@+id/materialCardView"
         app:layout_constraintTop_toTopOf="@+id/materialCardView">
@@ -114,7 +115,7 @@
                     android:layout_weight="1"
                     android:gravity="center"
                     android:text="@string/total"
-                    android:textColor="@color/grayAndBlack"
+                    android:textColor="@color/main_color"
                     android:textSize="20sp"
                     android:textStyle="bold"
                     tools:ignore="NestedWeights" />
@@ -125,7 +126,7 @@
                     android:layout_weight="1"
                     android:gravity="center"
                     android:text="@string/total"
-                    android:textColor="@color/grayAndBlack"
+                    android:textColor="@color/main_color"
                     android:textSize="20sp"
                     android:textStyle="bold"
                     tools:ignore="NestedWeights" />
@@ -136,7 +137,7 @@
                     android:layout_weight="1"
                     android:gravity="center"
                     android:text="@string/total"
-                    android:textColor="@color/grayAndBlack"
+                    android:textColor="@color/main_color"
                     android:textSize="20sp"
                     android:textStyle="bold"
                     tools:ignore="NestedWeights" />
@@ -156,7 +157,7 @@
                     android:gravity="center|top"
                     android:text="@string/favoritePlaylists"
                     android:textColor="@color/nonSelective"
-                    android:textSize="16sp"
+                    android:textSize="14sp"
                     android:textStyle="bold"
                     tools:ignore="NestedWeights" />
 
@@ -167,7 +168,7 @@
                     android:gravity="center|top"
                     android:text="@string/favoriteSongs"
                     android:textColor="@color/nonSelective"
-                    android:textSize="16sp"
+                    android:textSize="14sp"
                     android:textStyle="bold"
                     tools:ignore="NestedWeights" />
 
@@ -178,7 +179,7 @@
                     android:gravity="center|top"
                     android:text="@string/createAPlaylist"
                     android:textColor="@color/nonSelective"
-                    android:textSize="16sp"
+                    android:textSize="14sp"
                     android:textStyle="bold"
                     tools:ignore="NestedWeights" />
 
@@ -190,8 +191,9 @@
     <com.google.android.material.card.MaterialCardView
         android:id="@+id/collectMusic"
         android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:layout_margin="20dp"
+        android:layout_height="45dp"
+        android:layout_marginHorizontal="20dp"
+        android:layout_marginTop="40dp"
         android:clickable="true"
         android:focusable="true"
         android:foreground="?attr/selectableItemBackground"
@@ -209,8 +211,8 @@
             tools:ignore="RtlHardcoded">
 
             <ImageView
-                android:layout_width="30dp"
-                android:layout_height="30dp"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
                 android:layout_gravity="center_vertical"
                 android:contentDescription="@null"
                 android:src="@drawable/songs"
@@ -224,8 +226,7 @@
                 android:layout_weight="1"
                 android:text="@string/favoriteSongs"
                 android:textColor="@color/nonSelective"
-                android:textSize="16sp"
-                android:textStyle="bold" />
+                android:textSize="14sp" />
 
             <ImageView
                 android:layout_width="20dp"
@@ -233,16 +234,16 @@
                 android:layout_gravity="center_vertical|end"
                 android:contentDescription="@null"
                 android:src="@drawable/enter"
-                app:tint="@color/nonSelective" />
+                app:tint="@color/main_color" />
         </LinearLayout>
     </com.google.android.material.card.MaterialCardView>
 
     <com.google.android.material.card.MaterialCardView
         android:id="@+id/collectPlatList"
         android:layout_width="match_parent"
-         android:layout_height="50dp"
+        android:layout_height="45dp"
         android:layout_marginHorizontal="20dp"
-        android:layout_marginTop="14dp"
+        android:layout_marginTop="18dp"
         android:clickable="true"
         android:focusable="true"
         android:foreground="?attr/selectableItemBackground"
@@ -260,8 +261,8 @@
             tools:ignore="RtlHardcoded">
 
             <ImageView
-                android:layout_width="30dp"
-                android:layout_height="30dp"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
                 android:layout_gravity="center_vertical"
                 android:contentDescription="@null"
                 android:src="@drawable/playlists"
@@ -275,8 +276,7 @@
                 android:layout_weight="1"
                 android:text="@string/favoritePlaylists"
                 android:textColor="@color/nonSelective"
-                android:textSize="16sp"
-                android:textStyle="bold" />
+                android:textSize="14sp" />
 
             <ImageView
                 android:layout_width="20dp"
@@ -284,16 +284,16 @@
                 android:layout_gravity="center_vertical|end"
                 android:contentDescription="@null"
                 android:src="@drawable/enter"
-                app:tint="@color/nonSelective" />
+                app:tint="@color/main_color" />
         </LinearLayout>
     </com.google.android.material.card.MaterialCardView>
 
     <com.google.android.material.card.MaterialCardView
         android:id="@+id/createPlatList"
         android:layout_width="match_parent"
-         android:layout_height="50dp"
+        android:layout_height="45dp"
         android:layout_marginHorizontal="20dp"
-        android:layout_marginTop="15dp"
+        android:layout_marginTop="18dp"
         android:clickable="true"
         android:focusable="true"
         android:foreground="?attr/selectableItemBackground"
@@ -311,8 +311,8 @@
             tools:ignore="RtlHardcoded">
 
             <ImageView
-                android:layout_width="30dp"
-                android:layout_height="30dp"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
                 android:layout_gravity="center_vertical"
                 android:contentDescription="@null"
                 android:src="@drawable/create"
@@ -326,8 +326,7 @@
                 android:layout_weight="1"
                 android:text="@string/createAPlaylist"
                 android:textColor="@color/nonSelective"
-                android:textSize="16sp"
-                android:textStyle="bold" />
+                android:textSize="14sp" />
 
             <ImageView
                 android:layout_width="20dp"
@@ -335,16 +334,16 @@
                 android:layout_gravity="center_vertical|end"
                 android:contentDescription="@null"
                 android:src="@drawable/enter"
-                app:tint="@color/nonSelective" />
+                app:tint="@color/main_color" />
         </LinearLayout>
     </com.google.android.material.card.MaterialCardView>
 
     <com.google.android.material.card.MaterialCardView
         android:id="@+id/userFeedback"
         android:layout_width="match_parent"
-         android:layout_height="50dp"
+        android:layout_height="45dp"
         android:layout_marginHorizontal="20dp"
-        android:layout_marginTop="15dp"
+        android:layout_marginTop="18dp"
         android:clickable="true"
         android:focusable="true"
         android:foreground="?attr/selectableItemBackground"
@@ -362,8 +361,8 @@
             tools:ignore="RtlHardcoded">
 
             <ImageView
-                android:layout_width="30dp"
-                android:layout_height="30dp"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
                 android:layout_gravity="center_vertical"
                 android:contentDescription="@null"
                 android:src="@drawable/upload"
@@ -377,8 +376,7 @@
                 android:layout_weight="1"
                 android:text="@string/localUpload"
                 android:textColor="@color/nonSelective"
-                android:textSize="16sp"
-                android:textStyle="bold" />
+                android:textSize="14sp" />
 
             <ImageView
                 android:layout_width="20dp"
@@ -386,16 +384,16 @@
                 android:layout_gravity="center_vertical|end"
                 android:contentDescription="@null"
                 android:src="@drawable/enter"
-                app:tint="@color/nonSelective" />
+                app:tint="@color/main_color" />
         </LinearLayout>
     </com.google.android.material.card.MaterialCardView>
 
     <com.google.android.material.card.MaterialCardView
         android:id="@+id/uploadAudio"
         android:layout_width="match_parent"
-         android:layout_height="50dp"
+        android:layout_height="45dp"
         android:layout_marginHorizontal="20dp"
-        android:layout_marginTop="15dp"
+        android:layout_marginTop="18dp"
         android:clickable="true"
         android:focusable="true"
         android:foreground="?attr/selectableItemBackground"
@@ -413,8 +411,8 @@
             tools:ignore="RtlHardcoded">
 
             <ImageView
-                android:layout_width="30dp"
-                android:layout_height="30dp"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
                 android:layout_gravity="center_vertical"
                 android:contentDescription="@null"
                 android:src="@drawable/feedback"
@@ -428,8 +426,7 @@
                 android:layout_weight="1"
                 android:text="@string/userFeedback"
                 android:textColor="@color/nonSelective"
-                android:textSize="16sp"
-                android:textStyle="bold" />
+                android:textSize="14sp" />
 
             <ImageView
                 android:layout_width="20dp"
@@ -437,8 +434,9 @@
                 android:layout_gravity="center_vertical|end"
                 android:contentDescription="@null"
                 android:src="@drawable/enter"
-                app:tint="@color/nonSelective" />
+                app:tint="@color/main_color" />
         </LinearLayout>
     </com.google.android.material.card.MaterialCardView>
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

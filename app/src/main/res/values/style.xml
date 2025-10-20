@@ -11,4 +11,6 @@
         <item name="cornerFamily">rounded</item>
         <item name="cornerSize">100dp</item> <!-- 设置圆角大小 -->
     </style>
+
+
 </resources>
