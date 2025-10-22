@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:background="@drawable/bottom_sheet_background"
+    android:padding="20dp">
+
+    <!-- 标题 -->
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="创建歌单"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        android:textColor="@color/grayAndBlack"
+        android:gravity="center"
+        android:paddingBottom="8dp" />
+
+    <!-- 提示信息 -->
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="歌单将默认设置为公开"
+        android:textSize="14sp"
+        android:textColor="@color/nonSelective"
+        android:gravity="center"
+        android:paddingBottom="20dp" />
+
+    <!-- 输入框容器 -->
+    <com.google.android.material.card.MaterialCardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:cardCornerRadius="12dp"
+        app:cardElevation="0dp"
+        app:strokeColor="@color/main_color"
+        app:strokeWidth="1dp"
+        android:layout_marginBottom="24dp">
+
+        <EditText
+            android:id="@+id/playlistNameInput"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="请输入歌单名称"
+            android:textColorHint="@color/nonSelective"
+            android:textColor="@color/grayAndBlack"
+            android:textSize="16sp"
+            android:padding="16dp"
+            android:background="@android:color/transparent"
+            android:maxLines="1"
+            android:inputType="text"
+            android:importantForAutofill="no" />
+    </com.google.android.material.card.MaterialCardView>
+
+    <!-- 按钮组 -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center">
+
+        <!-- 取消按钮 -->
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/cancelButton"
+            android:layout_width="0dp"
+            android:layout_height="48dp"
+            android:layout_weight="1"
+            android:layout_marginEnd="8dp"
+            android:clickable="true"
+            android:focusable="true"
+            android:foreground="?attr/selectableItemBackground"
+            app:cardCornerRadius="24dp"
+            app:cardElevation="0dp"
+            app:strokeColor="@color/main_color"
+            app:strokeWidth="1dp">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="取消"
+                android:textSize="16sp"
+                android:textColor="@color/main_color"
+                android:gravity="center"
+                android:textStyle="bold" />
+        </com.google.android.material.card.MaterialCardView>
+
+        <!-- 创建按钮 -->
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/createButton"
+            android:layout_width="0dp"
+            android:layout_height="48dp"
+            android:layout_weight="1"
+            android:layout_marginStart="8dp"
+            android:clickable="true"
+            android:focusable="true"
+            android:foreground="?attr/selectableItemBackground"
+            app:cardCornerRadius="24dp"
+            app:cardElevation="0dp"
+            app:cardBackgroundColor="@color/main_color">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="创建"
+                android:textSize="16sp"
+                android:textColor="@color/pureWhite"
+                android:gravity="center"
+                android:textStyle="bold" />
+        </com.google.android.material.card.MaterialCardView>
+    </LinearLayout>
+
+</LinearLayout>
