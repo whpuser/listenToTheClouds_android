@@ -21,8 +21,14 @@ coroutines = "1.7.3"
  androidxMedia = "1.6.0"
 activity = "1.8.2"
 annotation = "1.6.0"
+palette = "1.0.0"
+okhttp = "4.12.0"
 
 [libraries]
+okhttp = { group = "com.squareup.okhttp3", name = "okhttp", version.ref = "okhttp" }
+okhttp-logging-interceptor = { group = "com.squareup.okhttp3", name = "logging-interceptor", version.ref = "okhttp" }
+okhttp-urlconnection = { group = "com.squareup.okhttp3", name = "okhttp-urlconnection", version.ref = "okhttp" }
+androidx-palette = { group = "androidx.palette", name = "palette", version.ref = "palette" }
 gpuimage = { group = "jp.co.cyberagent.android", name = "gpuimage", version = "2.1.0" }
 androidx-paging-runtime-ktx = { group = "androidx.paging", name = "paging-runtime-ktx", version.ref = "paging" }
 kotlinx-coroutines-core = { group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-core", version.ref = "coroutines" }

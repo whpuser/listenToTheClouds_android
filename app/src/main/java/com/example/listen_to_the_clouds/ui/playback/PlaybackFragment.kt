@@ -1,6 +1,7 @@
 package com.example.listen_to_the_clouds.ui.playback
 
 import android.animation.ObjectAnimator
+import android.annotation.SuppressLint
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
@@ -8,6 +9,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.animation.LinearInterpolator
+import android.widget.Toast
 import com.google.android.material.slider.Slider
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
@@ -15,10 +17,13 @@ import androidx.lifecycle.lifecycleScope
 
 import com.bumptech.glide.Glide
 import com.example.listen_to_the_clouds.R
+import com.example.listen_to_the_clouds.adapter.PlaylistSelectAdapter
 import com.example.listen_to_the_clouds.databinding.FragmentDashboardBinding
 import com.example.listen_to_the_clouds.utils.ImageBlurUtils
+import com.example.listen_to_the_clouds.utils.TokenManager
 import com.example.listen_to_the_clouds.player.PlayMode
 import com.example.listen_to_the_clouds.data.network.RESOURCE_ADDRESS
+import com.google.android.material.bottomsheet.BottomSheetDialog
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
@@ -69,6 +74,14 @@ class PlaybackFragment : Fragment(), View.OnClickListener {
         binding.playingStatus.setOnClickListener(this)      //播放状态
         binding.nextSong.setOnClickListener(this)           //下一曲
         binding.collect.setOnClickListener(this)            //收藏状态
+        
+        // 更多菜单按钮点击事件
+        binding.moreMenus.setOnClickListener {
+            showAddToPlaylistDialog()
+        }
+        
+        // 根据登录状态控制 moreMenus 按钮显示
+        updateMoreMenusVisibility()
 
         //进度条拖动监听
         binding.musicSlider.addOnChangeListener { slider, value, fromUser ->
@@ -131,6 +144,23 @@ class PlaybackFragment : Fragment(), View.OnClickListener {
                     binding.musicSlider.valueTo = 100f
                     binding.max.text = "00:00"
                 }
+            }
+        }
+
+        // 观察收藏状态
+        lifecycleScope.launch {
+            viewModel.currentSong.collectLatest { song ->
+                song?.let {
+                    updateFavoriteButton(it.collect == 1)
+                }
+            }
+        }
+
+        // 观察收藏操作结果（仅显示提示信息）
+        lifecycleScope.launch {
+            viewModel.favoriteResult.collect { result ->
+                // 显示提示信息
+                Toast.makeText(requireContext(), result.message, Toast.LENGTH_SHORT).show()
             }
         }
     }
@@ -236,8 +266,20 @@ class PlaybackFragment : Fragment(), View.OnClickListener {
     }
 
     /**
+     * 更新收藏按钮
+     */
+    private fun updateFavoriteButton(isFavorite: Boolean) {
+        if (isFavorite) {
+            binding.collect.setImageResource(R.drawable.collection) // 已收藏
+        } else {
+            binding.collect.setImageResource(R.drawable.air_collect) // 未收藏
+        }
+    }
+
+    /**
      * 格式化时间（毫秒转 mm:ss）
      */
+    @SuppressLint("DefaultLocale")
     private fun formatTime(milliseconds: Int): String {
         val seconds = milliseconds / 1000
         val minutes = seconds / 60
@@ -265,9 +307,75 @@ class PlaybackFragment : Fragment(), View.OnClickListener {
             }
             //收藏状态
             binding.collect -> {
-                // TODO: 实现收藏功能
+                viewModel.toggleFavorite()
             }
         }
+    }
+
+    /**
+     * 根据登录状态控制 moreMenus 按钮显示
+     */
+    private fun updateMoreMenusVisibility() {
+        if (TokenManager.isUserLoggedIn()) {
+            binding.moreMenus.visibility = View.VISIBLE
+        } else {
+            binding.moreMenus.visibility = View.GONE
+        }
+    }
+    
+    /**
+     * 显示添加到歌单的底部弹窗
+     */
+    private fun showAddToPlaylistDialog() {
+        val currentSong = viewModel.currentSong.value
+        if (currentSong == null) {
+            Toast.makeText(requireContext(), "当前没有播放歌曲", Toast.LENGTH_SHORT).show()
+            return
+        }
+        
+        val bottomSheetDialog = BottomSheetDialog(requireContext())
+        val dialogView = layoutInflater.inflate(R.layout.dialog_add_to_playlist, null)
+        bottomSheetDialog.setContentView(dialogView)
+        
+        val recyclerView = dialogView.findViewById<androidx.recyclerview.widget.RecyclerView>(R.id.playlistRecyclerView)
+        val emptyView = dialogView.findViewById<android.widget.TextView>(R.id.emptyView)
+        val cancelButton = dialogView.findViewById<com.google.android.material.card.MaterialCardView>(R.id.cancelButton)
+        
+        // 加载用户创建的歌单列表
+        lifecycleScope.launch {
+            val playlists = viewModel.getUserCreatedPlaylists()
+            
+            if (playlists.isEmpty()) {
+                recyclerView.visibility = View.GONE
+                emptyView.visibility = View.VISIBLE
+            } else {
+                recyclerView.visibility = View.VISIBLE
+                emptyView.visibility = View.GONE
+                
+                val adapter = PlaylistSelectAdapter(playlists) { playlist ->
+                    // 点击歌单，添加音乐到该歌单
+                    viewModel.addMusicToPlaylist(
+                        playlistId = playlist.playlistId,
+                        musicId = currentSong.id,
+                        onSuccess = {
+                            Toast.makeText(requireContext(), "添加成功", Toast.LENGTH_SHORT).show()
+                            bottomSheetDialog.dismiss()
+                        },
+                        onError = { errorMsg ->
+                            Toast.makeText(requireContext(), errorMsg, Toast.LENGTH_SHORT).show()
+                        }
+                    )
+                }
+                recyclerView.adapter = adapter
+            }
+        }
+        
+        // 取消按钮
+        cancelButton.setOnClickListener {
+            bottomSheetDialog.dismiss()
+        }
+        
+        bottomSheetDialog.show()
     }
 
     override fun onDestroyView() {

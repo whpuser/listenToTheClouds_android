@@ -274,6 +274,26 @@ object MusicPlayerManager {
     }
 
     /**
+     * 更新当前歌曲的收藏状态
+     */
+    fun updateCurrentSongFavoriteStatus(isFavorite: Boolean) {
+        _currentSong.value?.let { song ->
+            val updatedSong = song.copy(collect = if (isFavorite) 1 else 0)
+            _currentSong.value = updatedSong
+            
+            // 同时更新播放列表中的歌曲
+            val currentPlaylist = _playlist.value.toMutableList()
+            val index = _currentIndex.value
+            if (index >= 0 && index < currentPlaylist.size) {
+                currentPlaylist[index] = updatedSong
+                _playlist.value = currentPlaylist
+            }
+            
+            Log.d(TAG, "Updated song favorite status: ${song.name}, isFavorite=$isFavorite")
+        }
+    }
+
+    /**
      * 释放资源
      */
     fun release() {

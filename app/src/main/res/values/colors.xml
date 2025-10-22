@@ -4,6 +4,8 @@
     <color name="main_color">#61df9f</color>
     <color name="main_back">#fff</color>
     <color name="main_back1">#fafafa</color>
+    <!-- 白色主题下：30% 透明白 -->
+    <color name="main_back1_light">#B2FFFFFF</color>
     <color name="pureWhite">#fff</color>
     <!--    白色半透明-->
     <color name="halfWhite">#80FFFFFF</color>

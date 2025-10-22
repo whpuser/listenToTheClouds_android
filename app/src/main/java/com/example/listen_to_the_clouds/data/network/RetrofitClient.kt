@@ -1,6 +1,8 @@
 package com.example.listen_to_the_clouds.data.network
 //配置拦截器、全局获取数据、错误拦截等处理请求相关的问题
 
+import com.example.listen_to_the_clouds.MyApplication
+import com.example.listen_to_the_clouds.utils.TokenManager
 import com.google.gson.GsonBuilder
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
@@ -25,12 +27,19 @@ object RetrofitClient {
 
     //请求头拦截器
     private val headerInterceptor = Interceptor { chain ->
-        val original: Request = chain.request()                                     // 获取原始请求
-        val request = original.newBuilder()
-            .header("Accept", "application/json")                       // 告诉服务端返回 JSON
-            .header("Content-Type", "application/json; charset=UTF-8")  // 发送 JSON
-            .build()
-        chain.proceed(request)                                                       // 继续执行请求
+        val original: Request = chain.request()
+        val token = TokenManager.getToken(MyApplication.context) // 获取 token
+        val requestBuilder = original.newBuilder()
+            .header("Accept", "application/json")
+            .header("Content-Type", "application/json; charset=UTF-8")
+
+        // 如果有 token，则添加 Authorization
+        if (!token.isNullOrEmpty()) {
+            requestBuilder.header("Authorization", "$token")
+        }
+
+        val request = requestBuilder.build()
+        chain.proceed(request)
     }
 
     //OkHttpClient

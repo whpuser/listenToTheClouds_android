@@ -72,4 +72,9 @@ dependencies {
     implementation(libs.androidx.media3.session)
     // androidx.media (提供 NotificationCompat.MediaStyle 等)
     implementation(libs.androidx.media)
+    // Palette 获取图片颜色
+    implementation(libs.androidx.palette)
+    implementation(libs.okhttp)
+    implementation(libs.okhttp.logging.interceptor)
+    implementation(libs.okhttp.urlconnection)
 }

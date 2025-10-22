@@ -1,5 +1,6 @@
 package com.example.listen_to_the_clouds.ui.home
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -16,8 +17,10 @@ import com.example.listen_to_the_clouds.adapter.SongPagingAdapter
 import com.example.listen_to_the_clouds.data.model.HomeSong
 import com.example.listen_to_the_clouds.databinding.FragmentHomeBinding
 import com.example.listen_to_the_clouds.player.MusicPlayerManager
+import com.example.listen_to_the_clouds.ui.activity.playlist.PlaylistActivity
 import com.example.listen_to_the_clouds.utils.GlobalMessageBus
 import android.widget.Toast
+import com.example.listen_to_the_clouds.ui.activity.search.SearchActivity
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
@@ -50,8 +53,16 @@ class HomeFragment : Fragment() {
 
     private fun initView() {
 
+        binding.searchPage.setOnClickListener{
+            val intent = Intent(requireContext(), SearchActivity::class.java)
+            startActivity(intent)
+        }
+
         playlistAdapter = PlaylistPagingAdapter { playlist ->
-            Log.d("HomeFragment", "点击歌单: ${playlist.playlistTitle}")
+            // 点击歌单跳转到PlaylistActivity
+            val intent = Intent(requireContext(), PlaylistActivity::class.java)
+            intent.putExtra("playlistId", playlist.playlistId)
+            startActivity(intent)
         }
         
         // 歌曲点击事件：设置播放列表并跳转到播放页面

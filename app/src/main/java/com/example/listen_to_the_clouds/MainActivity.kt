@@ -1,5 +1,6 @@
 package com.example.listen_to_the_clouds
 
+import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
 import android.view.View
@@ -31,7 +32,26 @@ class MainActivity : AppCompatActivity() {
 
         initView()
         initObserve()
-
+        
+        // 处理从其他页面跳转过来的导航请求
+        handleNavigationIntent()
+    }
+    
+    override fun onNewIntent(intent: Intent) {
+        super.onNewIntent(intent)
+        setIntent(intent)
+        handleNavigationIntent()
+    }
+    
+    private fun handleNavigationIntent() {
+        intent?.getStringExtra("navigate_to")?.let { destination ->
+            when (destination) {
+                "playback" -> {
+                    // 跳转到播放页面
+                    navigateSafe(R.id.navigation_dashboard)
+                }
+            }
+        }
     }
 
     private fun initView() {

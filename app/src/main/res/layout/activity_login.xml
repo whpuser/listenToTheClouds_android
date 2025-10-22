@@ -10,16 +10,26 @@
     tools:context=".ui.activity.login.LoginActivity">
 
     <ImageView
+        android:id="@+id/back"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_margin="20dp"
+        android:src="@drawable/shrink"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:tint="@color/main_color" />
+
+    <ImageView
         android:id="@+id/imageView3"
-        android:layout_width="60dp"
-        android:layout_height="60dp"
-        android:src="@drawable/logo"
+        android:layout_width="120dp"
+        android:layout_height="80dp"
+        android:src="@drawable/logo1"
         android:layout_marginTop="60dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:tint="@color/main_color" />
 
-    <!-- 应用标题 -->
     <TextView
         android:id="@+id/tvAppTitle"
         android:layout_width="wrap_content"
@@ -33,15 +43,14 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imageView3" />
 
-    <!-- 登录卡片 -->
     <com.google.android.material.card.MaterialCardView
         android:id="@+id/cardLogin"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginHorizontal="32dp"
         android:layout_marginTop="32dp"
         app:cardCornerRadius="20dp"
-        app:cardElevation="6dp"
+        android:layout_marginHorizontal="30dp"
+        app:cardElevation="0dp"
         app:cardBackgroundColor="@android:color/white"
         app:layout_constraintTop_toBottomOf="@id/tvAppTitle"
         app:layout_constraintStart_toStartOf="parent"
@@ -53,7 +62,6 @@
             android:orientation="vertical"
             android:padding="24dp">
 
-            <!-- 欢迎文字 -->
             <TextView
                 android:id="@+id/tvWelcome"
                 android:layout_width="wrap_content"
@@ -64,87 +72,99 @@
                 android:textColor="@color/main_color"
                 android:layout_marginBottom="16dp" />
 
-            <!-- 用户名输入框 -->
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/usernameInputLayout"
+            <!-- 用户名 -->
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/usernameCard"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="@string/mailbox"
-                app:boxBackgroundMode="none"
-                app:boxStrokeColor="@color/main_color"
+                app:cardCornerRadius="8dp"
+                app:strokeWidth="1dp"
+                app:strokeColor="@color/main_color"
                 android:layout_marginBottom="12dp">
 
-                <com.google.android.material.textfield.TextInputEditText
+                <EditText
                     android:id="@+id/usernameEditText"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:hint="@string/mailbox"
+                    android:padding="12dp"
+                    android:background="@android:color/transparent"
                     android:inputType="textPersonName"
                     android:singleLine="true" />
-            </com.google.android.material.textfield.TextInputLayout>
+            </com.google.android.material.card.MaterialCardView>
 
-            <!-- 密码输入框 -->
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/passwordInputLayout"
+            <!-- 密码 -->
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/passwordCard"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="@string/password"
-                app:boxBackgroundMode="none"
-                app:passwordToggleEnabled="true"
-                app:boxStrokeColor="@color/main_color"
+                app:cardCornerRadius="8dp"
+                app:strokeWidth="1dp"
+                app:strokeColor="@color/main_color"
                 android:layout_marginBottom="20dp">
 
-                <com.google.android.material.textfield.TextInputEditText
+                <EditText
                     android:id="@+id/passwordEditText"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:hint="@string/password"
+                    android:padding="12dp"
+                    android:background="@android:color/transparent"
                     android:inputType="textPassword"
                     android:singleLine="true" />
-            </com.google.android.material.textfield.TextInputLayout>
+            </com.google.android.material.card.MaterialCardView>
 
-            <!-- 确认密码输入框 -->
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/confirmPasswordInputLayout"
+            <!-- 确认密码 -->
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/confirmPasswordCard"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="@string/password"
-                app:boxBackgroundMode="none"
-                app:passwordToggleEnabled="true"
-                app:boxStrokeColor="@color/main_color"
+                android:visibility="gone"
+                app:cardCornerRadius="8dp"
+                app:strokeWidth="1dp"
+                app:strokeColor="@color/main_color"
                 android:layout_marginBottom="20dp">
 
-                <com.google.android.material.textfield.TextInputEditText
+                <EditText
                     android:id="@+id/confirmPasswordEditText"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:hint="@string/password"
+                    android:padding="12dp"
+                    android:background="@android:color/transparent"
                     android:inputType="textPassword"
                     android:singleLine="true" />
-            </com.google.android.material.textfield.TextInputLayout>
+            </com.google.android.material.card.MaterialCardView>
 
-            <!-- 验证码输入框 + 获取按钮 -->
+            <!-- 验证码 -->
             <LinearLayout
                 android:id="@+id/sendEmailCode"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:visibility="gone"
                 android:orientation="horizontal"
                 android:gravity="center_vertical"
                 android:layout_marginBottom="20dp">
 
-                <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/codeInputLayout"
+                <com.google.android.material.card.MaterialCardView
+                    android:id="@+id/codeCard"
                     android:layout_width="0dp"
                     android:layout_weight="1"
                     android:layout_height="wrap_content"
-                    android:hint="@string/verificationCode"
-                    app:boxBackgroundMode="none"
-                    app:boxStrokeColor="@color/main_color">
+                    app:cardCornerRadius="8dp"
+                    app:strokeWidth="1dp"
+                    app:strokeColor="@color/main_color">
 
-                    <com.google.android.material.textfield.TextInputEditText
+                    <EditText
                         android:id="@+id/codeEditText"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:hint="@string/verificationCode"
+                        android:padding="12dp"
+                        android:background="@android:color/transparent"
                         android:inputType="number"
                         android:singleLine="true" />
-                </com.google.android.material.textfield.TextInputLayout>
+                </com.google.android.material.card.MaterialCardView>
 
                 <com.google.android.material.button.MaterialButton
                     android:id="@+id/btnSendCode"
@@ -158,7 +178,6 @@
                     android:textColor="@android:color/white" />
             </LinearLayout>
 
-            <!-- 登录按钮 -->
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/loginButton"
                 android:layout_width="match_parent"
@@ -169,11 +188,9 @@
                 app:cornerRadius="12dp"
                 app:backgroundTint="@color/main_color"
                 android:textColor="@android:color/white" />
-
         </LinearLayout>
     </com.google.android.material.card.MaterialCardView>
 
-    <!-- 底部链接 -->
     <LinearLayout
         android:id="@+id/bottomLinks"
         android:layout_width="wrap_content"
@@ -191,8 +208,5 @@
             android:text="注册账号"
             android:textColor="@color/main_color"
             android:paddingEnd="12dp" />
-
-
     </LinearLayout>
-
 </androidx.constraintlayout.widget.ConstraintLayout>

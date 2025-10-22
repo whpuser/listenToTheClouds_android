@@ -4,6 +4,8 @@
     <color name="pureWhite">#1e1e1e</color>
     <color name="main_back">#121113</color>
     <color name="main_back1">#1e1e1e</color>
+    <!-- 黑色主题下：30% 透明黑 -->
+    <color name="main_back1_light">#B2000000</color>
     <color name="nonSelective">#ced0d6</color>
     <color name="halfWhite">#80121113</color>
     <color name="gray">#252526</color>
