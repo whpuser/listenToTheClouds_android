@@ -1,12 +1,11 @@
 package com.example.listen_to_the_clouds.adapter
 
 import android.annotation.SuppressLint
-import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
+import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.listen_to_the_clouds.R
@@ -14,9 +13,9 @@ import com.example.listen_to_the_clouds.data.model.HomeSong
 import com.example.listen_to_the_clouds.data.network.RESOURCE_ADDRESS
 import com.example.listen_to_the_clouds.databinding.ViewHomeMusicBinding
 
-class SongPagingAdapter(
-    private val onItemClick: (HomeSong) -> Unit // 点击事件回调
-) : PagingDataAdapter<HomeSong, SongPagingAdapter.SongViewHolder>(DiffCallback) {
+class SongListAdapter(
+    private val onItemClick: (HomeSong) -> Unit
+) : ListAdapter<HomeSong, SongListAdapter.SongViewHolder>(DiffCallback) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SongViewHolder {
         val binding = ViewHomeMusicBinding.inflate(
@@ -45,11 +44,9 @@ class SongPagingAdapter(
                 collection.visibility = View.GONE
             }
 
-
-            type.text = item.type
             songTitle.text = item.name
+            type.text = item.type
             author.text = item.artist
-
 
             Glide.with(root)
                 .load(RESOURCE_ADDRESS + item.cover)

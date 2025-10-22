@@ -22,6 +22,7 @@ import androidx.palette.graphics.Palette
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
 import com.example.listen_to_the_clouds.R
+import com.example.listen_to_the_clouds.adapter.PlaylistAdapter
 import com.example.listen_to_the_clouds.adapter.SongPagingAdapter
 import com.example.listen_to_the_clouds.data.network.RESOURCE_ADDRESS
 import com.example.listen_to_the_clouds.databinding.ActivityPlaylistBinding
@@ -35,7 +36,7 @@ import java.io.FileOutputStream
 class PlaylistActivity : AppCompatActivity() {
     private lateinit var binding: ActivityPlaylistBinding
     private val viewModel: PlaylistViewModel by viewModels()
-    private lateinit var songAdapter: SongPagingAdapter
+    private lateinit var playlistAdapter: PlaylistAdapter
     
     // 用于存储选中的封面图片
     private var selectedCoverUri: Uri? = null
@@ -91,13 +92,13 @@ class PlaylistActivity : AppCompatActivity() {
         }
 
         // 设置音乐列表适配器（分页）
-        songAdapter = SongPagingAdapter { song ->
+        playlistAdapter = PlaylistAdapter { song ->
             onSongClick(song)
         }
         
         binding.songList.apply {
             layoutManager = LinearLayoutManager(this@PlaylistActivity)
-            adapter = songAdapter
+            adapter = playlistAdapter
         }
         
         // 收藏按钮点击事件
@@ -153,7 +154,7 @@ class PlaylistActivity : AppCompatActivity() {
         // 观察音乐列表（分页）
         lifecycleScope.launch {
             viewModel.playlistMusicFlow.collectLatest { pagingData ->
-                songAdapter.submitData(pagingData)
+                playlistAdapter.submitData(pagingData)
             }
         }
     }
@@ -227,7 +228,7 @@ class PlaylistActivity : AppCompatActivity() {
      */
     private fun onSongClick(song: com.example.listen_to_the_clouds.data.model.HomeSong) {
         // 获取当前已加载的歌曲列表
-        val currentList = songAdapter.snapshot().items
+        val currentList = playlistAdapter.snapshot().items
         
         // 查找点击歌曲的索引
         val index = currentList.indexOfFirst { it.id == song.id }
@@ -364,19 +365,32 @@ class PlaylistActivity : AppCompatActivity() {
      * 显示删除确认对话框
      */
     private fun showDeleteConfirmDialog(playlistId: Long) {
-        androidx.appcompat.app.AlertDialog.Builder(this)
-            .setTitle("删除歌单")
-            .setMessage("确定要删除这个歌单吗？删除后无法恢复。")
-            .setPositiveButton("删除") { dialog, _ ->
-                viewModel.deletePlaylist(playlistId) {
-                    // 删除成功后关闭当前页面
-                    finish()
-                }
-                dialog.dismiss()
+        val bottomSheetDialog = BottomSheetDialog(this)
+        val dialogView = layoutInflater.inflate(R.layout.dialog_delete_playlist_confirm, null)
+        bottomSheetDialog.setContentView(dialogView)
+        
+        // 设置歌单名称
+        val playlistNameText = dialogView.findViewById<android.widget.TextView>(R.id.playlistNameText)
+        viewModel.playlistDetails.value?.let { details ->
+            playlistNameText.text = "「${details.playlistTitle}」"
+        }
+        
+        // 取消按钮
+        val cancelButton = dialogView.findViewById<com.google.android.material.card.MaterialCardView>(R.id.cancelButton)
+        cancelButton.setOnClickListener {
+            bottomSheetDialog.dismiss()
+        }
+        
+        // 确认删除按钮
+        val confirmDeleteButton = dialogView.findViewById<com.google.android.material.card.MaterialCardView>(R.id.confirmDeleteButton)
+        confirmDeleteButton.setOnClickListener {
+            bottomSheetDialog.dismiss()
+            viewModel.deletePlaylist(playlistId) {
+                // 删除成功后关闭当前页面
+                finish()
             }
-            .setNegativeButton("取消") { dialog, _ ->
-                dialog.dismiss()
-            }
-            .show()
+        }
+        
+        bottomSheetDialog.show()
     }
 }

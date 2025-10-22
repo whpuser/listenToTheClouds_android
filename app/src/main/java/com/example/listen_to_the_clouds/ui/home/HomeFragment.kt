@@ -19,6 +19,7 @@ import com.example.listen_to_the_clouds.databinding.FragmentHomeBinding
 import com.example.listen_to_the_clouds.player.MusicPlayerManager
 import com.example.listen_to_the_clouds.ui.activity.playlist.PlaylistActivity
 import com.example.listen_to_the_clouds.utils.GlobalMessageBus
+import com.example.listen_to_the_clouds.utils.PlaylistRefreshBus
 import android.widget.Toast
 import com.example.listen_to_the_clouds.ui.activity.search.SearchActivity
 import kotlinx.coroutines.flow.collectLatest
@@ -108,6 +109,14 @@ class HomeFragment : Fragment() {
         lifecycleScope.launch {
             GlobalMessageBus.messages.collect { msg ->
                 Toast.makeText(requireContext(), msg, Toast.LENGTH_SHORT).show()
+            }
+        }
+        
+        // 监听歌单刷新事件
+        lifecycleScope.launch {
+            PlaylistRefreshBus.refreshEvents.collect { event ->
+                // 刷新歌单列表
+                playlistAdapter.refresh()
             }
         }
     }

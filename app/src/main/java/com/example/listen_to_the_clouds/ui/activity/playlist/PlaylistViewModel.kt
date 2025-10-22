@@ -23,6 +23,7 @@ import java.io.File
 import com.example.listen_to_the_clouds.data.network.RetrofitClient.apiService
 import com.example.listen_to_the_clouds.data.paging.PlaylistMusicPagingSource
 import com.example.listen_to_the_clouds.utils.GlobalMessageBus
+import com.example.listen_to_the_clouds.utils.PlaylistRefreshBus
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -130,7 +131,7 @@ class PlaylistViewModel : ViewModel() {
             } catch (e: Exception) {
                 Log.e("PlaylistViewModel", "togglePlaylistCollection: ${e.message}", e)
                 _collectionSuccess.value = false
-                GlobalMessageBus.post("操作失败: ${e.message}")
+                GlobalMessageBus.post("不能收藏自己的歌单")
             } finally {
                 _isLoading.value = false
                 // 重置成功状态
@@ -154,6 +155,8 @@ class PlaylistViewModel : ViewModel() {
                     val result = response.body()
                     if (result?.code == 200) {
                         GlobalMessageBus.post("删除歌单成功")
+                        // 通知首页刷新歌单列表
+                        PlaylistRefreshBus.notifyPlaylistDeleted()
                         onSuccess()
                     } else {
                         _errorMessage.value = result?.message ?: "删除失败"
@@ -204,6 +207,8 @@ class PlaylistViewModel : ViewModel() {
                     val result = response.body()
                     if (result?.code == 200) {
                         GlobalMessageBus.post("更新歌单成功")
+                        // 通知首页刷新歌单列表
+                        PlaylistRefreshBus.notifyPlaylistUpdated()
                         // 刷新歌单详情
                         getPlaylistDetails(playlistId)
                         onSuccess()
