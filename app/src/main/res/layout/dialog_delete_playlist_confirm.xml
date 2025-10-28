@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:background="@drawable/bottom_sheet_background"
+    android:padding="24dp">
+
+    <!-- 警告图标 -->
+    <ImageView
+        android:layout_width="64dp"
+        android:layout_height="64dp"
+        android:layout_gravity="center_horizontal"
+        android:src="@drawable/shrink"
+        android:contentDescription="@null"
+        android:padding="12dp"
+        android:background="@drawable/circle_background"
+        android:backgroundTint="#FFEBEE"
+        app:tint="#FF5252" />
+
+    <!-- 标题 -->
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="删除歌单"
+        android:textSize="22sp"
+        android:textStyle="bold"
+        android:textColor="@color/grayAndBlack"
+        android:gravity="center"
+        android:layout_marginTop="20dp" />
+
+    <!-- 歌单名称 -->
+    <TextView
+        android:id="@+id/playlistNameText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="我的歌单"
+        android:textSize="16sp"
+        android:textColor="@color/main_color"
+        android:gravity="center"
+        android:layout_marginTop="8dp"
+        android:textStyle="bold" />
+
+    <!-- 提示信息 -->
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="确定要删除这个歌单吗？\n删除后将无法恢复。"
+        android:textSize="15sp"
+        android:textColor="@color/grayAndBlack"
+        android:gravity="center"
+        android:layout_marginTop="12dp"
+        android:lineSpacingExtra="4dp"
+        android:alpha="0.7" />
+
+    <!-- 按钮容器 -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="24dp"
+        android:gravity="center">
+
+        <!-- 取消按钮 -->
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/cancelButton"
+            android:layout_width="0dp"
+            android:layout_height="50dp"
+            android:layout_weight="1"
+            android:layout_marginEnd="8dp"
+            android:clickable="true"
+            android:focusable="true"
+            android:foreground="?attr/selectableItemBackground"
+            app:cardCornerRadius="25dp"
+            app:cardElevation="0dp"
+            app:strokeColor="@color/main_color"
+            app:strokeWidth="2dp"
+            app:cardBackgroundColor="@android:color/transparent">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="取消"
+                android:textSize="16sp"
+                android:textColor="@color/main_color"
+                android:gravity="center"
+                android:textStyle="bold" />
+        </com.google.android.material.card.MaterialCardView>
+
+        <!-- 删除按钮 -->
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/confirmDeleteButton"
+            android:layout_width="0dp"
+            android:layout_height="50dp"
+            android:layout_weight="1"
+            android:layout_marginStart="8dp"
+            android:clickable="true"
+            android:focusable="true"
+            android:foreground="?attr/selectableItemBackground"
+            app:cardCornerRadius="25dp"
+            app:cardElevation="2dp"
+            app:cardBackgroundColor="#FF5252">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="删除"
+                android:textSize="16sp"
+                android:textColor="@color/pureWhite"
+                android:gravity="center"
+                android:textStyle="bold" />
+        </com.google.android.material.card.MaterialCardView>
+
+    </LinearLayout>
+
+</LinearLayout>
