@@ -22,6 +22,7 @@
             android:layout_height="match_parent"
             android:scaleType="centerCrop"
             android:src="@drawable/test" />
+        
     </LinearLayout>
 
     <View
@@ -81,7 +82,8 @@
         android:id="@+id/moreMenus"
         android:layout_width="40dp"
         android:layout_height="40dp"
-        android:layout_margin="20dp"
+        android:layout_marginTop="40dp"
+        android:layout_marginRight="20dp"
         app:cardBackgroundColor="#80eeeeee"
         app:cardCornerRadius="40dp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -116,16 +118,25 @@
             android:layout_gravity="center"
             android:layout_marginTop="10dp"
             android:text="@string/home_label_music"
+            android:gravity="center"
             android:textColor="@color/main_color"
             android:textSize="18sp"
             android:textStyle="bold" />
 
         <!-- 占据剩余空间 -->
         <LinearLayout
+            android:gravity="center"
+            android:layout_gravity="center"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="1">
             <!-- 歌词区域 -->
+            <com.example.listen_to_the_clouds.ui.playback.LyricsView
+                android:layout_gravity="center"
+                android:id="@+id/lyricsView"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginHorizontal="20dp" />
 
         </LinearLayout>
 

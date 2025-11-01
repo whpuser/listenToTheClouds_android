@@ -10,7 +10,6 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.animation.LinearInterpolator
 import android.widget.Toast
-import com.google.android.material.slider.Slider
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
@@ -38,7 +37,7 @@ class PlaybackFragment : Fragment(), View.OnClickListener {
     private val updateProgressRunnable = object : Runnable {
         override fun run() {
             viewModel.updateProgress()
-            handler.postDelayed(this, 1000) // 每秒更新一次
+            handler.postDelayed(this, 100) // 每100毫秒更新一次，让歌词动画更流畅
         }
     }
     
@@ -100,6 +99,8 @@ class PlaybackFragment : Fragment(), View.OnClickListener {
             viewModel.currentSong.collectLatest { song ->
                 song?.let {
                     updateSongUI(it)
+                    // 加载歌词
+                    viewModel.loadLyrics(it.id)
                 }
             }
         }
@@ -126,6 +127,9 @@ class PlaybackFragment : Fragment(), View.OnClickListener {
                     binding.musicSlider.value = position.toFloat().coerceIn(0f, binding.musicSlider.valueTo)
                 }
                 binding.min.text = formatTime(position)
+                
+                // 更新歌词显示位置
+                binding.lyricsView.updateTime(position.toLong())
             }
         }
 
@@ -161,6 +165,13 @@ class PlaybackFragment : Fragment(), View.OnClickListener {
             viewModel.favoriteResult.collect { result ->
                 // 显示提示信息
                 Toast.makeText(requireContext(), result.message, Toast.LENGTH_SHORT).show()
+            }
+        }
+        
+        // 观察歌词数据
+        lifecycleScope.launch {
+            viewModel.lyrics.collectLatest { lyrics ->
+                binding.lyricsView.setLyrics(lyrics)
             }
         }
     }

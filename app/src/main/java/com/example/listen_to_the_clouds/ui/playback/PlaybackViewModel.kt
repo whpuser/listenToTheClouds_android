@@ -18,8 +18,12 @@ import com.example.listen_to_the_clouds.data.network.DEFAULT_PAGING
 import com.example.listen_to_the_clouds.data.network.RetrofitClient.apiService
 import com.example.listen_to_the_clouds.player.MusicPlayerManager
 import com.example.listen_to_the_clouds.player.PlayMode
+import com.example.listen_to_the_clouds.utils.LyricLine
+import com.example.listen_to_the_clouds.utils.LyricsParser
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 
 class PlaybackViewModel : ViewModel() {
@@ -44,6 +48,10 @@ class PlaybackViewModel : ViewModel() {
     val playMode: StateFlow<PlayMode> = MusicPlayerManager.playMode
     val currentPosition: StateFlow<Int> = MusicPlayerManager.currentPosition
     val duration: StateFlow<Int> = MusicPlayerManager.duration
+    
+    // 歌词数据
+    private val _lyrics = MutableStateFlow<List<LyricLine>>(emptyList())
+    val lyrics: StateFlow<List<LyricLine>> = _lyrics.asStateFlow()
 
     fun getPaginationSong(id:Int) {
         viewModelScope.launch {
@@ -127,6 +135,34 @@ class PlaybackViewModel : ViewModel() {
             }
         }
     }
+    
+    /**
+     * 加载当前歌曲的歌词
+     */
+    fun loadLyrics(songId: Long) {
+        viewModelScope.launch {
+            try {
+                val response = apiService.getSongDetails(songId.toInt())
+                
+                if (response.isSuccessful && response.body()?.code == 200) {
+                    val musicDetails = response.body()?.data
+                    val lyricsText = musicDetails?.lyrics
+                    
+                    // 解析歌词
+                    val parsedLyrics = LyricsParser.parse(lyricsText)
+                    _lyrics.value = parsedLyrics
+                    
+                    Log.d("PlaybackViewModel", "Loaded lyrics for song $songId: ${parsedLyrics.size} lines")
+                } else {
+                    Log.e("PlaybackViewModel", "Failed to load lyrics: ${response.body()?.message}")
+                    _lyrics.value = emptyList()
+                }
+            } catch (e: Exception) {
+                Log.e("PlaybackViewModel", "Error loading lyrics: ${e.message}")
+                _lyrics.value = emptyList()
+            }
+        }
+    }
 
     /**
      * 切换歌曲收藏状态
@@ -199,7 +235,7 @@ class PlaybackViewModel : ViewModel() {
                     Log.e("PlaybackViewModel", "Add music to playlist failed: $errorMsg")
                 }
             } catch (e: Exception) {
-                val errorMsg = "网络错误: ${e.message}"
+                val errorMsg = "歌曲以存在"
                 onError(errorMsg)
                 Log.e("PlaybackViewModel", "Add music to playlist error: ${e.message}")
             }
